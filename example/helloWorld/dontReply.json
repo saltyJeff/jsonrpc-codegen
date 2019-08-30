@@ -1,0 +1,10 @@
+{
+    "$schema": "../../docs/method.schema.json",
+    "params": {
+        "properties": {
+            "msg": {
+                "type": "string"
+            }
+        }
+    }
+}

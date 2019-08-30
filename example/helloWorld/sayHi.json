@@ -1,0 +1,13 @@
+{
+    "$schema": "../../docs/method.schema.json",
+    "params": {
+        "additionProperties": false
+    },
+    "result": {
+        "properties": {
+            "hi": {
+                "type": "string"
+            }
+        }
+    }
+}

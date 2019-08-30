@@ -1,0 +1,18 @@
+{
+    "$schema": "../../docs/method.schema.json",
+    "params": {
+        "properties": {
+            "str": {
+                "type": "string"
+            }
+        },
+        "additionProperties": false
+    },
+    "result": {
+        "properties": {
+            "echo": {
+                "type": "string"
+            }
+        }
+    }
+}

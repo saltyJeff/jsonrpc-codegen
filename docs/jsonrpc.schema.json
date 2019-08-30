@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "JSONRPC-Codegen schema",
+	"type": "object",
+	"properties": {
+		"include": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"description": "Schema files to include"
+		},
+		"outDir": {
+			"type": "string",
+			"description": "Directory to export interfaces to"
+		}
+	},
+	"required": ["include", "outDir"]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "jsonrpc-codegen",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "GPLv3",
+  "private": true,
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.5",
+    "@types/node": "^12.6.0",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "ajv": "^6.9.1",
+    "chokidar": "^2.1.6",
+    "fast-glob": "^2.2.7",
+    "fs-extra": "^7.0.1",
+    "json-schema-to-typescript": "^7.0.0",
+    "log4js": "^4.3.1",
+    "source-map-support": "^0.5.9"
+  },
+  "scripts": {
+    "link-example": "cd example && npm link ..",
+    "pretest": "tsc",
+    "test": "node dist/index.js example && cd example && tsc && node dist/index.js"
+  },
+  "bin": {
+    "jsonrpc": "dist/index.js"
+  }
+}

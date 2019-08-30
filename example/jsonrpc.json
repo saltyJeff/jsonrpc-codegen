@@ -1,0 +1,8 @@
+{
+	"$schema": "../docs/jsonrpc.schema.json",
+	"include": [
+		"helloWorld/**/*.json",
+		"echo/**/*.json"
+	],
+	"outDir": "src/jsonrpc"
+}
