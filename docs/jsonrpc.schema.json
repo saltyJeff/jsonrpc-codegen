@@ -15,5 +15,8 @@
 			"description": "Directory to export interfaces to"
 		}
 	},
-	"required": ["include", "outDir"]
+	"required": [
+		"include",
+		"outDir"
+	]
 }
