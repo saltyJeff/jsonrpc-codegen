@@ -1,13 +1,13 @@
-import { Echo } from "./jsonrpc/Echo";
-import { EchoParams } from "./jsonrpc/EchoParams";
-import { EchoResult } from "./jsonrpc/EchoResults";
-import { echoHandler, echoHandlerHOF } from './jsonrpc/EchoHandler'
+import { Echo } from "./jsonrpc/Echo/Echo";
+import { EchoParams } from "./jsonrpc/Echo/EchoParams";
+import { EchoResult } from "./jsonrpc/Echo/EchoResults";
+import { echoHandler, echoHandlerHOF } from './jsonrpc/Echo/EchoHandler'
 import * as assert from 'assert'
-import { RPCError, RPCResponse } from "../../dist/RPC";
-import { HelloWorld } from "./jsonrpc/HelloWorld";
-import { SayHiParams, DontReplyParams } from "./jsonrpc/HelloWorldParams";
-import { SayHiResult } from "./jsonrpc/HelloWorldResults";
-import { helloWorldHandlerHOF } from "./jsonrpc/HelloWorldHandler";
+import { RPCError, RPCResponse, RPC } from 'jsonrpc-codegen/dist/RPC'
+import { HelloWorld } from "./jsonrpc/HelloWorld/HelloWorld";
+import { SayHiParams, DontReplyParams } from "./jsonrpc/HelloWorld/HelloWorldParams";
+import { SayHiResult } from "./jsonrpc/HelloWorld/HelloWorldResults";
+import { helloWorldHandlerHOF } from "./jsonrpc/HelloWorld/HelloWorldHandler";
 
 class EchoTester implements Echo {
 	async echo(params: EchoParams): Promise<EchoResult> {
@@ -53,7 +53,7 @@ class HelloWorldImpl implements HelloWorld {
 
 	const notJson = await echoHandler(isThisEvenJson)
 	console.log('notJson', notJson)
-	assert(notJson instanceof RPCError && notJson.code == -32700)
+	assert(notJson instanceof RPCError)
 
 	const malformed = await echoHandler(malformedRpc)
 	console.log('malformed', malformedRpc)

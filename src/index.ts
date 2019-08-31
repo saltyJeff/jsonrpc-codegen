@@ -46,11 +46,13 @@ filePromise.then(async (files) => {
 
     for(let [endpoint, methods] of endpointMethods.entries()) {
         // 3 files are generated for each method: methods, params, and returns
-        const interfaceFile = path.join(outputDir, endpoint+'.ts')
-        const paramsFile = path.join(outputDir, endpoint+'Params.ts')
-        const returnFile = path.join(outputDir, endpoint+'Results.ts')
-        const handlerFile = path.join(outputDir, endpoint+'Handler.ts')
-        const validatorFile = path.join(outputDir, endpoint+'Validators.ts')
+        const endpointOutputDir = path.join(outputDir, endpoint)
+        await fs.ensureDir(endpointOutputDir)
+        const interfaceFile = path.join(endpointOutputDir, endpoint+'.ts')
+        const paramsFile = path.join(endpointOutputDir, endpoint+'Params.ts')
+        const returnFile = path.join(endpointOutputDir, endpoint+'Results.ts')
+        const handlerFile = path.join(endpointOutputDir, endpoint+'Handler.ts')
+        const validatorFile = path.join(endpointOutputDir, endpoint+'Validators.ts')
 
         const interfaceStream = fs.createWriteStream(interfaceFile, {
             flags: 'w'
