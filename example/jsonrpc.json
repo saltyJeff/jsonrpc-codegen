@@ -4,5 +4,6 @@
 		"helloWorld/**/*.json",
 		"echo/**/*.json"
 	],
-	"outDir": "src/jsonrpc"
+	"outDir": "src/jsonrpc",
+	"abstractClass": true
 }

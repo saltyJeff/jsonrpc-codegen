@@ -1,5 +1,5 @@
 import * as paramTypes from './EchoParams'
 import * as resultTypes from './EchoResults'
-export interface Echo {
-	echo(params: paramTypes.EchoParams): Promise<resultTypes.EchoResult>
+export abstract class Echo {
+	abstract async echo(params: paramTypes.EchoParams): Promise<resultTypes.EchoResult>
 }

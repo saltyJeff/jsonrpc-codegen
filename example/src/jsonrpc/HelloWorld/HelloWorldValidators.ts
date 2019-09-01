@@ -9,6 +9,6 @@ export const dontReply = ajv.compile({
   "type": "object"
 })
 export const sayHi = ajv.compile({
-  "additionProperties": false,
+  "additionalProperties": false,
   "type": "object"
 })

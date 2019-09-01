@@ -3,7 +3,5 @@ export interface DontReplyParams {
 	[k: string]: any;
 }
 
-export interface SayHiParams {
-	[k: string]: any;
-}
+export interface SayHiParams {}
 

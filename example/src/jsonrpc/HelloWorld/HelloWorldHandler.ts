@@ -22,12 +22,12 @@ export async function helloWorldHandler(handler: HelloWorld, msg: string): Promi
 	switch(rpc.method) {
 	case 'dontReply':
 		if(!validators.dontReply(rpc.params)) {
-			return new RPCError(validators.dontReply.errors.toString(), -32602)
+			return new RPCError(JSON.stringify(validators.dontReply.errors), -32602)
 		}
 		return new RPCResponse<void>(rpc.method, await handler.dontReply(rpc.params))
 	case 'sayHi':
 		if(!validators.sayHi(rpc.params)) {
-			return new RPCError(validators.sayHi.errors.toString(), -32602)
+			return new RPCError(JSON.stringify(validators.sayHi.errors), -32602)
 		}
 		return new RPCResponse<resultTypes.SayHiResult>(rpc.method, await handler.sayHi(rpc.params))
 	default:

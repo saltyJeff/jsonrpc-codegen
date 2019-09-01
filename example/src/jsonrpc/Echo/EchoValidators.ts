@@ -6,6 +6,6 @@ export const echo = ajv.compile({
       "type": "string"
     }
   },
-  "additionProperties": false,
+  "additionalProperties": false,
   "type": "object"
 })

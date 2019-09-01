@@ -9,7 +9,7 @@ import { SayHiParams, DontReplyParams } from "./jsonrpc/HelloWorld/HelloWorldPar
 import { SayHiResult } from "./jsonrpc/HelloWorld/HelloWorldResults";
 import { helloWorldHandlerHOF } from "./jsonrpc/HelloWorld/HelloWorldHandler";
 
-class EchoTester implements Echo {
+class EchoTester extends Echo {
 	async echo(params: EchoParams): Promise<EchoResult> {
 		return {
 			echo: params.str
@@ -21,9 +21,16 @@ const isThisEvenJson = "potato salad"
 const malformedRpc = JSON.stringify({
 	"function": "should be called method"
 })
-const invalidParams = JSON.stringify({
+const invalidMethod = JSON.stringify({
 	jsonrpc: '2.0',
 	method: 'potato',
+	params: {
+		potato: 'salad'
+	}
+})
+const invalidParam = JSON.stringify({
+	jsonrpc: '2.0',
+	method: 'echo',
 	params: {
 		potato: 'salad'
 	}
@@ -37,7 +44,7 @@ const validParams = JSON.stringify({
 })
 
 // just here to check if it compiles (no result / no parameters)
-class HelloWorldImpl implements HelloWorld {
+class HelloWorldImpl extends HelloWorld {
 	async sayHi(params: SayHiParams): Promise<SayHiResult> {
 		return {
 			hi: 'Hello World'
@@ -59,9 +66,13 @@ class HelloWorldImpl implements HelloWorld {
 	console.log('malformed', malformedRpc)
 	assert(malformed instanceof RPCError && malformed.code == -32600)
 
-	const invalid = await echoHandler(invalidParams)
-	console.log('invalid', invalid)
-	assert(invalid instanceof RPCError && invalid.code == -32601)
+	const invalidMethodResult = await echoHandler(invalidMethod)
+	console.log('invalid method', invalidMethodResult)
+	assert(invalidMethodResult instanceof RPCError && invalidMethodResult.code == -32601)
+
+	const invalidParamResult = await echoHandler(invalidParam)
+	console.log('invalid param', invalidParamResult)
+	assert(invalidParamResult instanceof RPCError && invalidParamResult.code == -32602)
 
 	const valid = await echoHandler(validParams)
 	console.log('valid', valid)

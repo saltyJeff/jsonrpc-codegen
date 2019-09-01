@@ -29,6 +29,9 @@ if(!configValidator(config)) {
     logger.error(configValidator.errors)
     process.exit(1)
 }
+if(config.abstractClass === undefined) {
+    config.abstractClass = false
+}
 
 // ensure outdir exists
 fs.ensureDirSync(path.join(rootDir, config.outDir))
@@ -72,7 +75,8 @@ filePromise.then(async (files) => {
 
         interfaceStream.write(`import * as paramTypes from './${endpoint}Params'\n`)
         interfaceStream.write(`import * as resultTypes from './${endpoint}Results'\n`)
-        interfaceStream.write(`export interface ${endpoint} {\n`)
+        const interfaceHeader = config.abstractClass ? `export abstract class ${endpoint} {\n` : `export interface ${endpoint} {\n`
+        interfaceStream.write(interfaceHeader)
         handlerStream.write(handlerFileTop(endpoint))
         validatorStream.write(
 `import * as Ajv from 'ajv'
@@ -80,7 +84,7 @@ const ajv = Ajv()
 `)
 
 
-        await Promise.all(methods.map((method) => processMethod(method, interfaceStream, paramsStream, returnStream, handlerStream, validatorStream)))
+        await Promise.all(methods.map((method) => processMethod(method, interfaceStream, paramsStream, returnStream, handlerStream, validatorStream, config.abstractClass)))
 
         interfaceStream.write('}')
         handlerStream.write(handlerFileBottom(endpoint))

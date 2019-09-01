@@ -10,7 +10,8 @@ export async function processMethod(method: Method,
 	paramsStream: WriteStream, 
 	resultStream: WriteStream,
 	handlerStream: WriteStream,
-	validatorStream: WriteStream) {
+	validatorStream: WriteStream,
+	abstractClass: boolean = false) {
 	const paramTypeName = `${toPascalCase(method.name)}Params`
 	const resultTypeName = `${toPascalCase(method.name)}Result`
 
@@ -39,7 +40,8 @@ export async function processMethod(method: Method,
 	const paramList = !!method.params ? `params: paramTypes.${paramTypeName}` : ''
 	const resultType = !!method.result ? `resultTypes.${resultTypeName}` : 'void'
 
-	interfaceStream.write(`\t${method.name}(${paramList}): Promise<${resultType}>\n`)
+	const methodPrefix = abstractClass ? 'abstract async ' : ''
+	interfaceStream.write(`\t${methodPrefix}${method.name}(${paramList}): Promise<${resultType}>\n`)
 
 	handlerStream.write(
 `\tcase '${method.name}':\n`
@@ -47,7 +49,7 @@ export async function processMethod(method: Method,
 	if(method.params) {
 		handlerStream.write(
 `\t\tif(!validators.${method.name}(rpc.params)) {
-			return new RPCError(validators.${method.name}.errors.toString(), -32602)
+			return new RPCError(JSON.stringify(validators.${method.name}.errors), -32602)
 		}\n`
 		)
 	}

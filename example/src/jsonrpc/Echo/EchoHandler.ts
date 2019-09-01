@@ -22,7 +22,7 @@ export async function echoHandler(handler: Echo, msg: string): Promise<RPC> {
 	switch(rpc.method) {
 	case 'echo':
 		if(!validators.echo(rpc.params)) {
-			return new RPCError(validators.echo.errors.toString(), -32602)
+			return new RPCError(JSON.stringify(validators.echo.errors), -32602)
 		}
 		return new RPCResponse<resultTypes.EchoResult>(rpc.method, await handler.echo(rpc.params))
 	default:

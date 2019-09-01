@@ -1,12 +1,12 @@
 {
-    "$schema": "../../docs/method.schema.json",
+    "$schema": "https://saltyjeff.github.io/jsonrpc-codegen/method.schema.json",
     "params": {
         "properties": {
             "str": {
                 "type": "string"
             }
         },
-        "additionProperties": false
+        "additionalProperties": false
     },
     "result": {
         "properties": {

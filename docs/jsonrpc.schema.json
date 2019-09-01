@@ -13,6 +13,11 @@
 		"outDir": {
 			"type": "string",
 			"description": "Directory to export interfaces to"
+		},
+		"abstractClass": {
+			"type": "boolean",
+			"default": false,
+			"description": "If set, an abstract class will be generated instead of an enum"
 		}
 	},
 	"required": [
