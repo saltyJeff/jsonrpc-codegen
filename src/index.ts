@@ -12,8 +12,10 @@ import { sortIntoEndpoints } from './sortIntoEndpoints';
 import { processMethod } from './processMethod';
 import { handlerFileBottom, handlerFileTop } from './handlerFile';
 getLogger().level = 'warn'
-
 const logger = getLogger('jsonrpc-codegen')
+
+const npmPackage = require('../package.json')
+logger.warn('Executing JSON-RPC codegen version: '+npmPackage.version)
 const rootDir = process.argv.length <= 2 ? process.cwd() : path.resolve(process.cwd(), process.argv[2])
 logger.warn(`Generating JSON-RPC definitions from: ${rootDir}`)
 
