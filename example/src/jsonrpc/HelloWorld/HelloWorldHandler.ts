@@ -4,7 +4,7 @@ import * as resultTypes from './HelloWorldResults'
 import { HelloWorld } from './HelloWorld'
 
 export async function helloWorldHandler(handler: HelloWorld, msg: string): Promise<RPC> {
-	let rpc: RPCRequest<any> = null
+	let rpc: RPCRequest<any> = {} as unknown as any // just a temporary value
 	// check parsing
 	try {
 		rpc = JSON.parse(msg)

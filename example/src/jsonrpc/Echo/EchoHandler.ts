@@ -4,7 +4,7 @@ import * as resultTypes from './EchoResults'
 import { Echo } from './Echo'
 
 export async function echoHandler(handler: Echo, msg: string): Promise<RPC> {
-	let rpc: RPCRequest<any> = null
+	let rpc: RPCRequest<any> = {} as unknown as any // just a temporary value
 	// check parsing
 	try {
 		rpc = JSON.parse(msg)
