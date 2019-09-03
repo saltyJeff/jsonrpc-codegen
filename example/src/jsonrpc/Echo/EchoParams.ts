@@ -1,4 +1,4 @@
 export interface EchoParams {
-	str?: string;
+	str: string;
 }
 

@@ -6,7 +6,11 @@ export const dontReply = ajv.compile({
       "type": "string"
     }
   },
-  "type": "object"
+  "type": "object",
+  "required": [
+    "msg"
+  ],
+  "additionalProperties": false
 })
 export const sayHi = ajv.compile({
   "additionalProperties": false,

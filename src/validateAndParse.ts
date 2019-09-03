@@ -24,6 +24,20 @@ export async function validateAndParse(file: string): Promise<Method> {
 	}
 	if(!!method.params) {
 		method.params.type = 'object'
+
+		// we establish the defaults: all properties are required and no additional params are allowed
+		// you can still override it thru the JSON schema
+		if(!!method.params.properties) {
+			if(method.params.required === undefined) {
+				const keys = Object.keys(method.params.properties)
+				if(!!keys && keys.length > 0) {
+					method.params.required = keys
+				}
+			}
+			if(method.params.additionalProperties === undefined) {
+				method.params.additionalProperties = false
+			}
+		}
 	}
 	if(!!method.result) {
 		method.result.type = 'object'

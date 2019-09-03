@@ -7,5 +7,8 @@ export const echo = ajv.compile({
     }
   },
   "additionalProperties": false,
-  "type": "object"
+  "type": "object",
+  "required": [
+    "str"
+  ]
 })

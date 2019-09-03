@@ -1,6 +1,5 @@
 export interface DontReplyParams {
-	msg?: string;
-	[k: string]: any;
+	msg: string;
 }
 
 export interface SayHiParams {}
