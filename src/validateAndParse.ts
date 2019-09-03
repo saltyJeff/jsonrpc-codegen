@@ -39,8 +39,21 @@ export async function validateAndParse(file: string): Promise<Method> {
 			}
 		}
 	}
+	// do the same as above but for results
 	if(!!method.result) {
 		method.result.type = 'object'
+
+		if(!!method.result.properties) {
+			if(method.result.required === undefined) {
+				const keys = Object.keys(method.result.properties)
+				if(!!keys && keys.length > 0) {
+					method.result.required = keys
+				}
+			}
+			if(method.result.additionalProperties === undefined) {
+				method.result.additionalProperties = false
+			}
+		}
 	}
 	method.filePath = file
 	return method
