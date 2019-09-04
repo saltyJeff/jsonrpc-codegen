@@ -7,10 +7,11 @@ export class RPCRequest<T> extends RPC {
 	method: string
 	params: T
 	id?: number | string
-	constructor(method: string, params: T) {
+	constructor(method: string, params: T, id?: number | string) {
 		super()
 		this.method = method
 		this.params = params
+		this.id = id
 	}
 }
 export class RPCResponse extends RPC {
