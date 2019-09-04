@@ -14,18 +14,16 @@ export class RPCRequest<T> extends RPC {
 	}
 }
 export class RPCResponse extends RPC {
-	method: string
 	id?: number | string
-	constructor(method: string, id?: number | string | null) {
+	constructor(id?: number | string | null) {
 		super()
-		this.method = method
 		this.id = id
 	}
 }
 export class RPCSuccess<T> extends RPCResponse {
 	result: T
-	constructor(method: string, result: T, id?: number | string) {
-		super(method, id)
+	constructor(result: T, id?: number | string) {
+		super(id)
 		this.result = result
 	}
 }
@@ -34,8 +32,8 @@ export class RPCError extends RPCResponse {
 		code: number
 		message: string
 	}
-	constructor(method: string, err: Error | string, code = 1, id?: any) {
-		super(method, null)
+	constructor(err: Error | string, code = 1, id?: any) {
+		super(null)
 		this.error = {
 			message: typeof(err) == 'string' ? err : `${err.name}: ${err.message}`,
 			code: code

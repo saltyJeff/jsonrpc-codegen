@@ -13,11 +13,11 @@ export async function ${toCamelCase(endpoint)}Handler(handler: ${endpoint}, msg:
 		rpc = JSON.parse(msg)
 	}
 	catch(e) {
-		return new RPCError(null, e, -32700)
+		return new RPCError(e, -32700)
 	}
 	// check conforms to JSON RPC standard
 	if(rpc.jsonrpc != '2.0' || !rpc.method || !rpc.params) {
-		return new RPCError(rpc.method, 'Not a JSON RPC', -32600)
+		return new RPCError('Not a JSON RPC', -32600)
 	}
 
 	// check and execute method
@@ -28,7 +28,7 @@ export async function ${toCamelCase(endpoint)}Handler(handler: ${endpoint}, msg:
 
 export function handlerFileBottom(endpoint: string): string {
 return `\tdefault:
-		return new RPCError(rpc.method, 'Method does not exist', -32601)
+		return new RPCError('Method does not exist', -32601)
 	}
 }
 export const ${toCamelCase(endpoint)}HandlerHOF = (handler: ${endpoint}) => (msg: string) => ${toCamelCase(endpoint)}Handler(handler, msg)`

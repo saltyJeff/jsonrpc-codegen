@@ -10,11 +10,11 @@ export async function echoHandler(handler: Echo, msg: string): Promise<RPC> {
 		rpc = JSON.parse(msg)
 	}
 	catch(e) {
-		return new RPCError(null, e, -32700)
+		return new RPCError(e, -32700)
 	}
 	// check conforms to JSON RPC standard
 	if(rpc.jsonrpc != '2.0' || !rpc.method || !rpc.params) {
-		return new RPCError(rpc.method, 'Not a JSON RPC', -32600)
+		return new RPCError('Not a JSON RPC', -32600)
 	}
 
 	// check and execute method
@@ -22,11 +22,11 @@ export async function echoHandler(handler: Echo, msg: string): Promise<RPC> {
 	switch(rpc.method) {
 	case 'echo':
 		if(!validators.echo(rpc.params)) {
-			return new RPCError(rpc.method, JSON.stringify(validators.echo.errors), -32602)
+			return new RPCError(JSON.stringify(validators.echo.errors), -32602)
 		}
-		return new RPCSuccess<resultTypes.EchoResult>(rpc.method, await handler.echo(rpc.params), id)
+		return new RPCSuccess<resultTypes.EchoResult>(await handler.echo(rpc.params), id)
 	default:
-		return new RPCError(rpc.method, 'Method does not exist', -32601)
+		return new RPCError('Method does not exist', -32601)
 	}
 }
 export const echoHandlerHOF = (handler: Echo) => (msg: string) => echoHandler(handler, msg)

@@ -1,6 +1,6 @@
 {
   "name": "jsonrpc-codegen",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "main": "dist/index.js",
   "license": "GPLv3",
   "private": true,

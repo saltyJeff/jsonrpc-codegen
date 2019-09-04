@@ -10,11 +10,11 @@ export async function helloWorldHandler(handler: HelloWorld, msg: string): Promi
 		rpc = JSON.parse(msg)
 	}
 	catch(e) {
-		return new RPCError(null, e, -32700)
+		return new RPCError(e, -32700)
 	}
 	// check conforms to JSON RPC standard
 	if(rpc.jsonrpc != '2.0' || !rpc.method || !rpc.params) {
-		return new RPCError(rpc.method, 'Not a JSON RPC', -32600)
+		return new RPCError('Not a JSON RPC', -32600)
 	}
 
 	// check and execute method
@@ -22,16 +22,16 @@ export async function helloWorldHandler(handler: HelloWorld, msg: string): Promi
 	switch(rpc.method) {
 	case 'dontReply':
 		if(!validators.dontReply(rpc.params)) {
-			return new RPCError(rpc.method, JSON.stringify(validators.dontReply.errors), -32602)
+			return new RPCError(JSON.stringify(validators.dontReply.errors), -32602)
 		}
-		return new RPCSuccess<void>(rpc.method, await handler.dontReply(rpc.params), id)
+		return new RPCSuccess<void>(await handler.dontReply(rpc.params), id)
 	case 'sayHi':
 		if(!validators.sayHi(rpc.params)) {
-			return new RPCError(rpc.method, JSON.stringify(validators.sayHi.errors), -32602)
+			return new RPCError(JSON.stringify(validators.sayHi.errors), -32602)
 		}
-		return new RPCSuccess<resultTypes.SayHiResult>(rpc.method, await handler.sayHi(rpc.params), id)
+		return new RPCSuccess<resultTypes.SayHiResult>(await handler.sayHi(rpc.params), id)
 	default:
-		return new RPCError(rpc.method, 'Method does not exist', -32601)
+		return new RPCError('Method does not exist', -32601)
 	}
 }
 export const helloWorldHandlerHOF = (handler: HelloWorld) => (msg: string) => helloWorldHandler(handler, msg)
