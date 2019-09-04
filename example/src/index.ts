@@ -3,7 +3,7 @@ import { EchoParams } from "./jsonrpc/Echo/EchoParams";
 import { EchoResult } from "./jsonrpc/Echo/EchoResults";
 import { echoHandler, echoHandlerHOF } from './jsonrpc/Echo/EchoHandler'
 import * as assert from 'assert'
-import { RPCError, RPCResponse, RPC } from 'jsonrpc-codegen/dist/RPC'
+import { RPCError, RPCResponse, RPC, RPCSuccess } from 'jsonrpc-codegen/dist/RPC'
 import { HelloWorld } from "./jsonrpc/HelloWorld/HelloWorld";
 import { SayHiParams, DontReplyParams } from "./jsonrpc/HelloWorld/HelloWorldParams";
 import { SayHiResult } from "./jsonrpc/HelloWorld/HelloWorldResults";
@@ -64,19 +64,19 @@ class HelloWorldImpl extends HelloWorld {
 
 	const malformed = await echoHandler(malformedRpc)
 	console.log('malformed', malformedRpc)
-	assert(malformed instanceof RPCError && malformed.code == -32600)
+	assert(malformed instanceof RPCError && malformed.error.code == -32600)
 
 	const invalidMethodResult = await echoHandler(invalidMethod)
 	console.log('invalid method', invalidMethodResult)
-	assert(invalidMethodResult instanceof RPCError && invalidMethodResult.code == -32601)
+	assert(invalidMethodResult instanceof RPCError && invalidMethodResult.error.code == -32601)
 
 	const invalidParamResult = await echoHandler(invalidParam)
 	console.log('invalid param', invalidParamResult)
-	assert(invalidParamResult instanceof RPCError && invalidParamResult.code == -32602)
+	assert(invalidParamResult instanceof RPCError && invalidParamResult.error.code == -32602)
 
 	const valid = await echoHandler(validParams)
 	console.log('valid', valid)
-	assert(valid instanceof RPCResponse && valid.result.echo == 'potato salad')
+	assert(valid instanceof RPCSuccess && valid.result.echo == 'potato salad')
 
 	const hiHandler = helloWorldHandlerHOF(new HelloWorldImpl())
 	console.log('ALL TESTS PASSED 🎉')

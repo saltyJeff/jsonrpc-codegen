@@ -49,11 +49,11 @@ export async function processMethod(method: Method,
 	if(method.params) {
 		handlerStream.write(
 `\t\tif(!validators.${method.name}(rpc.params)) {
-			return new RPCError(JSON.stringify(validators.${method.name}.errors), -32602)
+			return new RPCError(rpc.method, JSON.stringify(validators.${method.name}.errors), -32602)
 		}\n`
 		)
 	}
 	handlerStream.write(
-		`\t\treturn new RPCResponse<${resultType}>(rpc.method, await handler.${method.name}(${!!method.params ? 'rpc.params' : ''}))\n`
+		`\t\treturn new RPCSuccess<${resultType}>(rpc.method, await handler.${method.name}(${!!method.params ? 'rpc.params' : ''}), id)\n`
 	)
 }

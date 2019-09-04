@@ -7,14 +7,19 @@ export declare class RPCRequest<T> extends RPC {
     id?: number | string;
     constructor(method: string, params: T);
 }
-export declare class RPCResponse<T> extends RPC {
+export declare class RPCResponse extends RPC {
     method: string;
-    result: T;
     id?: number | string;
-    constructor(method: string, result: T);
+    constructor(method: string, id?: number | string | null);
 }
-export declare class RPCError extends RPC {
-    code: number;
-    message: string;
-    constructor(err: Error | string, code?: number);
+export declare class RPCSuccess<T> extends RPCResponse {
+    result: T;
+    constructor(method: string, result: T, id?: number | string);
+}
+export declare class RPCError extends RPCResponse {
+    error: {
+        code: number;
+        message: string;
+    };
+    constructor(method: string, err: Error | string, code?: number, id?: any);
 }
