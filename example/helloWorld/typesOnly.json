@@ -1,0 +1,11 @@
+{
+    "$schema": "https://saltyjeff.github.io/jsonrpc-codegen/method.schema.json",
+    "typesOnly": true,
+    "params": {
+        "properties": {
+            "SHOULD NOT BE PROCESSED": {
+                "type": "string"
+            }
+        }
+    }
+}

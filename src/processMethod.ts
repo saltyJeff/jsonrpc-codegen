@@ -36,6 +36,9 @@ export async function processMethod(method: Method,
 	if(method.result) {
 		resultStream.write(await compile(method.result, resultTypeName, compileOpts))
 	}
+	if(method.typesOnly) {
+		return
+	}
 
 	const paramList = !!method.params ? `params: paramTypes.${paramTypeName}` : ''
 	const resultType = !!method.result ? `resultTypes.${resultTypeName}` : 'void'

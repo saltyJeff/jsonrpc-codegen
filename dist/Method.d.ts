@@ -4,4 +4,5 @@ export interface Method {
     params: any;
     result: any;
     filePath: string;
+    typesOnly: boolean;
 }

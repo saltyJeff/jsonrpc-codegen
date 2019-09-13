@@ -12,6 +12,18 @@ export const dontReply = ajv.compile({
   ],
   "additionalProperties": false
 })
+export const typesOnly = ajv.compile({
+  "properties": {
+    "SHOULD NOT BE PROCESSED": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "SHOULD NOT BE PROCESSED"
+  ],
+  "additionalProperties": false
+})
 export const sayHi = ajv.compile({
   "additionalProperties": false,
   "type": "object"
