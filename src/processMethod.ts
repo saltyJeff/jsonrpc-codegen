@@ -52,7 +52,7 @@ export async function processMethod(method: Method,
 	if(method.params) {
 		handlerStream.write(
 `\t\tif(!validators.${method.name}(rpc.params)) {
-			return new RPCError(JSON.stringify(validators.${method.name}.errors), -32602)
+			return new RPCError(JSON.stringify(validators.${method.name}.errors), -32602, id)
 		}\n`
 		)
 	}

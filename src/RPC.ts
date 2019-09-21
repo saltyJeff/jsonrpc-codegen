@@ -33,8 +33,8 @@ export class RPCError extends RPCResponse {
 		code: number
 		message: string
 	}
-	constructor(err: Error | string, code = 1, id?: any) {
-		super(null)
+	constructor(err: Error | string, code = 1, id?: number | string) {
+		super(!!id ? id : null)
 		this.error = {
 			message: typeof(err) == 'string' ? err : `${err.name}: ${err.message}`,
 			code: code

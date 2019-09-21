@@ -99,3 +99,5 @@ const ajv = Ajv()
     }
     logger.warn(`Complete in ${(Date.now() - startTime) / 1000}s`)
 })
+
+export * from './RPC'

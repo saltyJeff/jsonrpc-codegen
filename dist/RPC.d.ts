@@ -20,5 +20,5 @@ export declare class RPCError extends RPCResponse {
         code: number;
         message: string;
     };
-    constructor(err: Error | string, code?: number, id?: any);
+    constructor(err: Error | string, code?: number, id?: number | string);
 }
