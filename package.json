@@ -10,7 +10,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "ajv": "^6.9.1",
+    "ajv": "^6.12.3",
     "fast-glob": "^2.2.7",
     "fs-extra": "^7.0.1",
     "json-schema-to-typescript": "^7.0.0",
